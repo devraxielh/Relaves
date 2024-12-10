@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Relaves en la MAPE</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .section:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-2px);
+        }
+        .section-content {
+            display: none;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        .active .section-content {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        .icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: #ddd;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .progress {
+            width: 0%;
+            height: 100%;
+            background-color: #4CAF50;
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .warning {
+            background-color: #fff3cd;
+            padding: 10px;
+            border-left: 4px solid #ffc107;
+            margin: 10px 0;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gestión de Relaves en la MAPE</h1>
+        <p>Guía interactiva de buenas prácticas para la gestión segura de relaves mineros</p>
+        
+        <div class="section" onclick="toggleSection(1)">
+            <h2>📋 1. Identificación y Caracterización</h2>
+            <div class="section-content" id="section1">
+                <p>Es fundamental identificar y caracterizar adecuadamente los relaves:</p>
+                <ul>
+                    <li>Análisis químico del material</li>
+                    <li>Evaluación de toxicidad</li>
+                    <li>Determinación de la granulometría</li>
+                    <li>Contenido de humedad</li>
+                </ul>
+                <div class="warning">
+                    ⚠️ La caracterización correcta es esencial para determinar el método de gestión apropiado.
+                </div>
+                <button onclick="showProgress(1)">Marcar como completado</button>
+            </div>
+        </div>
+
+        <div class="section" onclick="toggleSection(2)">
+            <h2>🏗️ 2. Diseño de Depósitos</h2>
+            <div class="section-content" id="section2">
+                <p>Elementos clave para el diseño seguro:</p>
+                <ul>
+                    <li>Selección adecuada del sitio</li>
+                    <li>Diseño de estructuras de contención</li>
+                    <li>Sistema de drenaje</li>
+                    <li>Control de erosión</li>
+                </ul>
+                <div class="warning">
+                    ⚠️ El diseño debe considerar las condiciones climáticas y geológicas locales.
+                </div>
+                <button onclick="showProgress(2)">Marcar como completado</button>
+            </div>
+        </div>
+
+        <div class="section" onclick="toggleSection(3)">
+            <h2>🔍 3. Monitoreo y Control</h2>
+            <div class="section-content" id="section3">
+                <p>Aspectos críticos del monitoreo:</p>
+                <ul>
+                    <li>Inspecciones regulares de estructuras</li>
+                    <li>Control de filtraciones</li>
+                    <li>Monitoreo de estabilidad</li>
+                    <li>Calidad del agua</li>
+                </ul>
+                <div class="warning">
+                    ⚠️ El monitoreo regular permite la detección temprana de problemas potenciales.
+                </div>
+                <button onclick="showProgress(3)">Marcar como completado</button>
+            </div>
+        </div>
+
+        <div class="section" onclick="toggleSection(4)">
+            <h2>♻️ 4. Prácticas Sostenibles</h2>
+            <div class="section-content" id="section4">
+                <p>Implementación de prácticas sostenibles:</p>
+                <ul>
+                    <li>Recuperación de agua</li>
+                    <li>Minimización de residuos</li>
+                    <li>Reutilización de materiales</li>
+                    <li>Rehabilitación progresiva</li>
+                </ul>
+                <div class="warning">
+                    ⚠️ Las prácticas sostenibles reducen el impacto ambiental y mejoran la eficiencia.
+                </div>
+                <button onclick="showProgress(4)">Marcar como completado</button>
+            </div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress" id="progressBar"></div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSection(sectionNum) {
+            const section = document.getElementById('section' + sectionNum).parentElement;
+            const wasActive = section.classList.contains('active');
+            
+            // Cerrar todas las secciones
+            document.querySelectorAll('.section').forEach(s => {
+                s.classList.remove('active');
+            });
+            
+            // Si la sección no estaba activa, abrirla
+            if (!wasActive) {
+                section.classList.add('active');
+            }
+        }
+
+        let progress = 0;
+        const totalSections = 4;
+
+        function showProgress(section) {
+            const button = event.target;
+            if (button.textContent === "Marcar como completado") {
+                progress++;
+                button.textContent = "Completado ✓";
+                button.style.backgroundColor = "#45a049";
+            } else {
+                progress--;
+                button.textContent = "Marcar como completado";
+                button.style.backgroundColor = "#4CAF50";
+            }
+            
+            const percentage = (progress / totalSections) * 100;
+            document.getElementById('progressBar').style.width = percentage + '%';
+        }
+    </script>
+</body>
+</html>

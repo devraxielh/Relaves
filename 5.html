@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .scene {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background: #f0f0f0;
+            border: 2px solid #ccc;
+            overflow: hidden;
+        }
+        .mine {
+            position: absolute;
+            left: 50px;
+            bottom: 50px;
+            width: 100px;
+            height: 80px;
+            background: #8b4513;
+            border-radius: 10px;
+        }
+        .relave {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #a0522d;
+            border-radius: 50%;
+            transition: all 1s ease;
+        }
+        .pond {
+            position: absolute;
+            right: 50px;
+            bottom: 30px;
+            width: 200px;
+            height: 100px;
+            background: #4a90e2;
+            border-radius: 50%;
+            transform: scaleX(1.5);
+        }
+        .controls {
+            margin-top: 20px;
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .info-panel {
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .step-indicator {
+            text-align: center;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .warning {
+            color: #ff0000;
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gestión de Relaves en la MAPE</h1>
+        <div class="scene">
+            <div class="mine"></div>
+            <div class="pond"></div>
+        </div>
+        <div class="step-indicator">Paso 1: Inicio del proceso</div>
+        <div class="controls">
+            <button onclick="nextStep()">Siguiente Paso</button>
+            <button onclick="resetAnimation()">Reiniciar</button>
+        </div>
+        <div class="info-panel">
+            <h3>Información del Proceso</h3>
+            <p id="info-text">La minería artesanal genera relaves que necesitan ser gestionados adecuadamente para proteger el medio ambiente y la salud humana.</p>
+            <div class="warning" id="warning-text">⚠️ Advertencia: Las prácticas inadecuadas de gestión de relaves pueden causar contaminación ambiental.</div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        let relaves = [];
+        const totalSteps = 4;
+
+        function createRelave() {
+            const relave = document.createElement('div');
+            relave.className = 'relave';
+            relave.style.left = '150px';
+            relave.style.bottom = '90px';
+            document.querySelector('.scene').appendChild(relave);
+            return relave;
+        }
+
+        function nextStep() {
+            currentStep++;
+            if (currentStep > totalSteps) {
+                currentStep = 1;
+                resetAnimation();
+                return;
+            }
+
+            const infoText = document.getElementById('info-text');
+            const stepIndicator = document.querySelector('.step-indicator');
+            const warningText = document.getElementById('warning-text');
+
+            switch(currentStep) {
+                case 2:
+                    const relave = createRelave();
+                    relaves.push(relave);
+                    setTimeout(() => {
+                        relave.style.left = '400px';
+                        relave.style.bottom = '50px';
+                    }, 100);
+                    infoText.textContent = "Los relaves son transportados desde el punto de extracción hasta la zona de disposición.";
+                    stepIndicator.textContent = "Paso 2: Transporte de relaves";
+                    break;
+                case 3:
+                    relaves.forEach(r => {
+                        r.style.right = '100px';
+                        r.style.left = 'auto';
+                        r.style.bottom = '40px';
+                    });
+                    infoText.textContent = "Los relaves se depositan en pozas o depósitos tradicionales.";
+                    stepIndicator.textContent = "Paso 3: Deposición de relaves";
+                    warningText.style.display = 'block';
+                    break;
+                case 4:
+                    infoText.textContent = "Es crucial implementar medidas de control y monitoreo para prevenir la contaminación ambiental.";
+                    stepIndicator.textContent = "Paso 4: Monitoreo y control";
+                    document.querySelector('.pond').style.background = '#6fa8dc';
+                    break;
+            }
+        }
+
+        function resetAnimation() {
+            relaves.forEach(r => r.remove());
+            relaves = [];
+            currentStep = 1;
+            document.querySelector('.pond').style.background = '#4a90e2';
+            document.getElementById('warning-text').style.display = 'none';
+            document.getElementById('info-text').textContent = "La minería artesanal genera relaves que necesitan ser gestionados adecuadamente para proteger el medio ambiente y la salud humana.";
+            document.querySelector('.step-indicator').textContent = "Paso 1: Inicio del proceso";
+        }
+    </script>
+</body>
+</html>
