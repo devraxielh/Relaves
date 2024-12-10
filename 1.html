@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .container {
+      max-width: 1000px;
+      margin: 20px auto;
+      font-family: system-ui, -apple-system, sans-serif;
+      padding: 20px;
+    }
+
+    .process {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      padding: 30px;
+      background: #f0f0f0;
+      border-radius: 12px;
+      margin-bottom: 30px;
+    }
+
+    .step {
+      padding: 25px;
+      background: white;
+      border-radius: 12px;
+      text-align: center;
+      transition: all 0.5s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .step h3 {
+      margin: 0 0 15px 0;
+      color: #1a365d;
+    }
+
+    .active {
+      background: #2196F3;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .active h3 {
+      color: white;
+    }
+
+    .step-content {
+      opacity: 0;
+      max-height: 0;
+      transition: all 0.5s ease;
+      text-align: left;
+      font-size: 0.9em;
+      line-height: 1.5;
+    }
+
+    .active .step-content {
+      opacity: 1;
+      max-height: 500px;
+      margin-top: 15px;
+    }
+
+    .animation-container {
+      height: 100px;
+      position: relative;
+      margin: 15px 0;
+      background: #e9ecef;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #ffd700;
+      border-radius: 50%;
+      animation: flow 3s infinite linear;
+    }
+
+    @keyframes flow {
+      0% { left: -10px; transform: translateY(0); }
+      50% { transform: translateY(20px); }
+      100% { left: 100%; transform: translateY(0); }
+    }
+
+    .water-flow {
+      position: absolute;
+      height: 20px;
+      background: linear-gradient(90deg, #4a90e2, #81c3fd);
+      animation: waterFlow 4s infinite linear;
+      opacity: 0.7;
+    }
+
+    @keyframes waterFlow {
+      0% { width: 0; left: 0; }
+      100% { width: 100%; left: 0; }
+    }
+
+    .controls {
+      margin: 30px 0;
+      text-align: center;
+    }
+
+    button {
+      padding: 12px 25px;
+      margin: 0 10px;
+      border: none;
+      border-radius: 6px;
+      background: #2196F3;
+      color: white;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #1976D2;
+    }
+
+    .description {
+      padding: 20px;
+      background: #E3F2FD;
+      border-radius: 8px;
+      margin-top: 20px;
+      line-height: 1.6;
+    }
+
+    .info-box {
+      margin-top: 20px;
+      padding: 15px;
+      background: #fff3e0;
+      border-radius: 8px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Proceso Detallado de Generación de Relaves Mineros</h1>
+    
+    <div class="process">
+      <div class="step" id="step1">
+        <h3>1. Extracción del Mineral</h3>
+        <div class="animation-container">
+          <div class="particle" style="animation-delay: 0s"></div>
+          <div class="particle" style="animation-delay: 1s"></div>
+          <div class="particle" style="animation-delay: 2s"></div>
+        </div>
+        <div class="step-content">
+          • Extracción del mineral bruto de la mina<br>
+          • Separación inicial de rocas grandes<br>
+          • Transporte a la planta de procesamiento<br>
+          • Control de calidad del material extraído<br>
+          • Clasificación preliminar del mineral
+        </div>
+      </div>
+
+      <div class="step" id="step2">
+        <h3>2. Procesamiento del Mineral</h3>
+        <div class="animation-container">
+          <div class="water-flow"></div>
+        </div>
+        <div class="step-content">
+          • Trituración y molienda del mineral<br>
+          • Proceso de flotación y separación<br>
+          • Recuperación del mineral valioso<br>
+          • Separación de agua y partículas<br>
+          • Control de calidad del proceso
+        </div>
+      </div>
+
+      <div class="step" id="step3">
+        <h3>3. Sistema de Transporte</h3>
+        <div class="animation-container">
+          <div class="particle" style="animation-delay: 0.5s"></div>
+          <div class="particle" style="animation-delay: 1.5s"></div>
+          <div class="water-flow" style="opacity: 0.4"></div>
+        </div>
+        <div class="step-content">
+          • Bombeo de relaves por tuberías<br>
+          • Monitoreo de presión y flujo<br>
+          • Sistema de control de derrames<br>
+          • Mantenimiento de tuberías<br>
+          • Control de viscosidad de la pulpa
+        </div>
+      </div>
+
+      <div class="step" id="step4">
+        <h3>4. Depósito de Relaves</h3>
+        <div class="animation-container">
+          <div class="water-flow" style="opacity: 0.3; animation-duration: 6s"></div>
+        </div>
+        <div class="step-content">
+          • Almacenamiento controlado de relaves<br>
+          • Sistema de contención y diques<br>
+          • Monitoreo ambiental continuo<br>
+          • Control de filtraciones<br>
+          • Recirculación de agua
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button onclick="startAnimation()">Iniciar Proceso</button>
+      <button onclick="resetAnimation()">Reiniciar</button>
+    </div>
+
+    <div class="description" id="description">
+      Presiona "Iniciar Proceso" para ver la explicación detallada de cada etapa.
+    </div>
+
+    <div class="info-box">
+      <strong>Información Importante:</strong><br>
+      • Los relaves son los residuos del proceso minero<br>
+      • El manejo adecuado es crucial para el medio ambiente<br>
+      • Se aplican estrictas normas de seguridad en cada etapa<br>
+      • El agua utilizada suele ser recirculada en el proceso
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 0;
+    let interval;
+    const steps = document.querySelectorAll('.step');
+    const description = document.getElementById('description');
+    
+    const descriptions = [
+      `<strong>1. Extracción del Mineral:</strong><br>
+      En esta etapa inicial, se extrae el mineral de la mina mediante diversos métodos. 
+      El material extraído contiene tanto el mineral valioso como la roca estéril. 
+      Se realiza una primera clasificación y se prepara para su procesamiento.`,
+
+      `<strong>2. Procesamiento del Mineral:</strong><br>
+      El mineral extraído pasa por procesos de trituración y molienda. 
+      Mediante flotación u otros métodos, se separa el mineral valioso de los materiales sin valor económico. 
+      Este proceso requiere grandes cantidades de agua y genera los relaves.`,
+
+      `<strong>3. Sistema de Transporte:</strong><br>
+      Los relaves son transportados en forma de pulpa (mezcla de sólidos y agua) 
+      a través de un sistema de tuberías. Se mantiene un control constante de la presión 
+      y el flujo para evitar obstrucciones y derrames.`,
+
+      `<strong>4. Depósito de Relaves:</strong><br>
+      Los relaves son depositados en instalaciones especialmente diseñadas. 
+      Aquí se permite la sedimentación de los sólidos y la recuperación del agua. 
+      Se mantiene un monitoreo constante para prevenir impactos ambientales.`
+    ];
+
+    function startAnimation() {
+      clearInterval(interval);
+      interval = setInterval(() => {
+        updateStep();
+      }, 5000); // Más tiempo para leer cada etapa
+    }
+
+    function resetAnimation() {
+      clearInterval(interval);
+      currentStep = 0;
+      steps.forEach(step => step.classList.remove('active'));
+      description.innerHTML = "Presiona 'Iniciar Proceso' para ver la explicación detallada de cada etapa.";
+    }
+
+    function updateStep() {
+      steps.forEach(step => step.classList.remove('active'));
+      if (currentStep < steps.length) {
+        steps[currentStep].classList.add('active');
+        description.innerHTML = descriptions[currentStep];
+        currentStep++;
+      } else {
+        clearInterval(interval);
+        currentStep = 0;
+      }
+    }
+  </script>
+</body>
+</html>

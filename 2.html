@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Impacto Ambiental de los Relaves Mineros</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            min-height: 100vh;
+            color: #333;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .scene {
+            width: 100%;
+            height: 500px;
+            position: relative;
+            background: linear-gradient(to bottom, #87CEEB, #5f9ea0);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .mountain {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 70%;
+            background: linear-gradient(45deg, #4a3728, #6b4423);
+            clip-path: polygon(0% 100%, 30% 20%, 50% 60%, 70% 20%, 100% 100%);
+            transition: all 0.5s ease;
+        }
+        .relave {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 40%;
+            background: linear-gradient(45deg, #cd853f, #deb887);
+            clip-path: polygon(0% 100%, 20% 30%, 50% 60%, 80% 30%, 100% 100%);
+            transition: all 0.8s ease;
+        }
+        .water {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 25%;
+            background: linear-gradient(to bottom, rgba(70, 130, 180, 0.8), rgba(0, 105, 148, 0.9));
+            transition: all 1s ease;
+        }
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: #8b4513;
+            border-radius: 50%;
+            animation: float 3s infinite ease-in-out;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-100px) translateX(50px); }
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        }
+        button:active {
+            transform: translateY(1px);
+        }
+        .impact {
+            display: none;
+            margin: 20px 0;
+            padding: 20px;
+            background: linear-gradient(to right, #fff, #f8f9fa);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            animation: slideIn 0.5s ease-out;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .impact h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        .impact p {
+            color: #34495e;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .impact ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .impact ul li {
+            padding: 10px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #465b6d;
+        }
+        .impact ul li:before {
+            content: "•";
+            color: #2c3e50;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        .warning-icon {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background-color: #ff9800;
+            border-radius: 50%;
+            margin-right: 15px;
+            vertical-align: middle;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏭 Impacto Ambiental de los Relaves Mineros</h1>
+        
+        <div class="scene">
+            <div class="mountain"></div>
+            <div class="relave" id="relave"></div>
+            <div class="water" id="water"></div>
+            <div class="particles" id="particles"></div>
+        </div>
+
+        <div class="controls">
+            <button onclick="showImpact('suelo')">🌱 Impacto en Suelo</button>
+            <button onclick="showImpact('agua')">💧 Impacto en Agua</button>
+            <button onclick="showImpact('aire')">💨 Impacto en Aire</button>
+        </div>
+
+        <div id="impactoSuelo" class="impact">
+            <h3>🌱 Impacto en el Suelo</h3>
+            <p>Los relaves mineros tienen un impacto severo en la calidad del suelo:</p>
+            <ul>
+                <li>Contaminación con metales pesados como mercurio, plomo y arsénico</li>
+                <li>Destrucción de la estructura del suelo y pérdida de nutrientes esenciales</li>
+                <li>Imposibilidad de crecimiento de vegetación por décadas</li>
+                <li>Afectación a los microorganismos beneficiosos del suelo</li>
+            </ul>
+        </div>
+
+        <div id="impactoAgua" class="impact">
+            <h3>💧 Impacto en el Agua</h3>
+            <p>La contaminación del agua por relaves es uno de los problemas más graves:</p>
+            <ul>
+                <li>Filtración de sustancias tóxicas a aguas subterráneas</li>
+                <li>Acidificación de ríos y lagos cercanos</li>
+                <li>Muerte masiva de peces y otros organismos acuáticos</li>
+                <li>Contaminación de fuentes de agua potable para comunidades</li>
+            </ul>
+        </div>
+
+        <div id="impactoAire" class="impact">
+            <h3>💨 Impacto en el Aire</h3>
+            <p>Los relaves secos generan problemas significativos en la calidad del aire:</p>
+            <ul>
+                <li>Dispersión de partículas finas contaminadas por el viento</li>
+                <li>Problemas respiratorios en poblaciones cercanas</li>
+                <li>Deposición de metales pesados en áreas agrícolas</li>
+                <li>Formación de nubes tóxicas en condiciones de sequía</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            particlesContainer.innerHTML = '';
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 2 + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        function showImpact(type) {
+            // Ocultar todos los impactos
+            document.querySelectorAll('.impact').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // Resetear animaciones
+            const relave = document.getElementById('relave');
+            const water = document.getElementById('water');
+            const particles = document.getElementById('particles');
+            
+            relave.style.height = '40%';
+            water.style.background = 'linear-gradient(to bottom, rgba(70, 130, 180, 0.8), rgba(0, 105, 148, 0.9))';
+            particles.style.opacity = '0';
+
+            // Mostrar el impacto seleccionado y animar
+            switch(type) {
+                case 'suelo':
+                    document.getElementById('impactoSuelo').style.display = 'block';
+                    relave.style.height = '50%';
+                    relave.style.width = '70%';
+                    break;
+                case 'agua':
+                    document.getElementById('impactoAgua').style.display = 'block';
+                    water.style.background = 'linear-gradient(to bottom, rgba(139, 69, 19, 0.8), rgba(160, 82, 45, 0.9))';
+                    water.style.height = '30%';
+                    break;
+                case 'aire':
+                    document.getElementById('impactoAire').style.display = 'block';
+                    particles.style.opacity = '1';
+                    createParticles();
+                    break;
+            }
+        }
+
+        // Inicializar partículas
+        createParticles();
+    </script>
+</body>
+</html>
