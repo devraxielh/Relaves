@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+        }
+        
+        .circle-container {
+            position: relative;
+            width: 600px;
+            height: 600px;
+            margin: 2rem auto;
+        }
+        
+        .center-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: #4CAF50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .process-circle {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: #2196F3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .process-circle:hover, .center-circle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
+        
+        .arrow {
+            position: absolute;
+            width: 100px;
+            height: 2px;
+            background: #666;
+            transform-origin: left center;
+        }
+        
+        .arrow::after {
+            content: '';
+            position: absolute;
+            right: -10px;
+            top: -4px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid #666;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+        }
+        
+        .info-panel {
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 8px;
+            background: #f5f5f5;
+            display: none;
+        }
+        
+        .button-container {
+            text-align: center;
+            margin: 1rem 0;
+        }
+        
+        .control-button {
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            border: none;
+            border-radius: 4px;
+            background: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .control-button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Economía Circular en Relaves MAPE</h1>
+        
+        <div class="button-container">
+            <button class="control-button" onclick="startAnimation()">Iniciar Animación</button>
+            <button class="control-button" onclick="resetAnimation()">Reiniciar</button>
+        </div>
+        
+        <div class="circle-container">
+            <div class="center-circle" onclick="showInfo('center')">
+                Relaves<br>MAPE
+            </div>
+        </div>
+        
+        <div id="infoPanel" class="info-panel"></div>
+    </div>
+
+    <script>
+        const processes = [
+            {
+                name: 'Caracterización',
+                description: 'Análisis detallado de la composición mineralógica y química de los relaves.',
+                angle: 0
+            },
+            {
+                name: 'Recuperación',
+                description: 'Extracción de minerales valiosos remanentes mediante procesos sostenibles.',
+                angle: 72
+            },
+            {
+                name: 'Tratamiento',
+                description: 'Procesamiento de residuos para reducir su impacto ambiental.',
+                angle: 144
+            },
+            {
+                name: 'Reutilización',
+                description: 'Uso de materiales tratados en construcción y otros sectores.',
+                angle: 216
+            },
+            {
+                name: 'Monitoreo',
+                description: 'Seguimiento continuo del impacto ambiental y eficiencia del proceso.',
+                angle: 288
+            }
+        ];
+
+        function initialize() {
+            const container = document.querySelector('.circle-container');
+            const radius = 200;
+
+            processes.forEach((process, index) => {
+                // Create process circle
+                const circle = document.createElement('div');
+                circle.className = 'process-circle';
+                circle.innerHTML = process.name;
+                circle.style.left = `${300 + radius * Math.cos(process.angle * Math.PI / 180) - 60}px`;
+                circle.style.top = `${300 + radius * Math.sin(process.angle * Math.PI / 180) - 60}px`;
+                circle.onclick = () => showInfo(index);
+                
+                // Create arrow
+                const arrow = document.createElement('div');
+                arrow.className = 'arrow';
+                arrow.style.left = '300px';
+                arrow.style.top = '300px';
+                arrow.style.transform = `rotate(${process.angle}deg)`;
+                
+                container.appendChild(circle);
+                container.appendChild(arrow);
+            });
+        }
+
+        function showInfo(index) {
+            const infoPanel = document.getElementById('infoPanel');
+            infoPanel.style.display = 'block';
+            
+            if (index === 'center') {
+                infoPanel.innerHTML = `
+                    <h3>Economía Circular en Relaves MAPE</h3>
+                    <p>Sistema integrado para el aprovechamiento sostenible de los relaves mineros, 
+                    minimizando el impacto ambiental y maximizando el valor económico de los recursos.</p>
+                `;
+            } else {
+                const process = processes[index];
+                infoPanel.innerHTML = `
+                    <h3>${process.name}</h3>
+                    <p>${process.description}</p>
+                `;
+            }
+        }
+
+        function startAnimation() {
+            const circles = document.querySelectorAll('.process-circle');
+            circles.forEach((circle, index) => {
+                setTimeout(() => {
+                    circle.style.background = '#ff5722';
+                    setTimeout(() => {
+                        circle.style.background = '#2196F3';
+                    }, 1000);
+                }, index * 1000);
+            });
+        }
+
+        function resetAnimation() {
+            const circles = document.querySelectorAll('.process-circle');
+            circles.forEach(circle => {
+                circle.style.background = '#2196F3';
+            });
+            document.getElementById('infoPanel').style.display = 'none';
+        }
+
+        initialize();
+    </script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .stage {
+            border: 2px solid #ccc;
+            padding: 20px;
+            margin: 20px 0;
+            position: relative;
+            min-height: 300px;
+            background: #f9f9f9;
+            overflow: hidden;
+        }
+        .relave {
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            transition: all 1.5s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            text-align: center;
+        }
+        .relave1 {
+            background: linear-gradient(45deg, #8B4513, #A0522D);
+            border-radius: 10% 30% 50% 70%;
+        }
+        .relave2 {
+            background: linear-gradient(45deg, #CD853F, #DEB887);
+            border-radius: 30% 50% 70% 90%;
+        }
+        .relave3 {
+            background: linear-gradient(45deg, #DAA520, #B8860B);
+            border-radius: 50% 70% 90% 30%;
+        }
+        .relave4 {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            border-radius: 70% 90% 30% 50%;
+        }
+        .process-box {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            background: white;
+            border-radius: 5px;
+            display: none;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .info-panel {
+            background: #e9e9e9;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        .particles {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #8B4513;
+            border-radius: 50%;
+            transition: all 1s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Transformación de Relaves en la MAPE</h1>
+        
+        <div class="stage" id="mainStage">
+            <div class="relave relave1" id="relave1" style="left: 50px; top: 50px">
+                Relave<br>Original
+            </div>
+        </div>
+
+        <div class="button-container">
+            <button onclick="startAnimation()">Siguiente Paso</button>
+            <button onclick="resetAnimation()">Reiniciar</button>
+        </div>
+
+        <div class="process-box" id="process1">
+            <h3>1. Relave Original</h3>
+            <p>• Material sin procesar</p>
+            <p>• Alto contenido de minerales</p>
+            <p>• Presencia de metales pesados</p>
+        </div>
+
+        <div class="process-box" id="process2">
+            <h3>2. Separación Inicial</h3>
+            <p>• Clasificación granulométrica</p>
+            <p>• Separación de gruesos y finos</p>
+            <p>• Preparación para tratamiento</p>
+        </div>
+
+        <div class="process-box" id="process3">
+            <h3>3. Procesamiento Químico</h3>
+            <p>• Lixiviación selectiva</p>
+            <p>• Recuperación de valores metálicos</p>
+            <p>• Control de pH y reactivos</p>
+        </div>
+
+        <div class="process-box" id="process4">
+            <h3>4. Producto Final</h3>
+            <p>• Material procesado</p>
+            <p>• Reducción de contaminantes</p>
+            <p>• Aprovechamiento completado</p>
+        </div>
+
+        <div class="info-panel">
+            <h3>Estado del Proceso</h3>
+            <p id="info-text">Presione "Siguiente Paso" para ver la transformación del relave.</p>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 0;
+        const relave = document.getElementById('relave1');
+        const infoText = document.getElementById('info-text');
+        const stage = document.getElementById('mainStage');
+
+        function createParticles() {
+            for(let i = 0; i < 10; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particles';
+                particle.style.left = Math.random() * 700 + 'px';
+                particle.style.top = Math.random() * 250 + 'px';
+                stage.appendChild(particle);
+            }
+        }
+
+        function removeParticles() {
+            const particles = document.getElementsByClassName('particles');
+            while(particles.length > 0) {
+                particles[0].parentNode.removeChild(particles[0]);
+            }
+        }
+
+        function showProcess(step) {
+            hideAllProcesses();
+            document.getElementById('process' + step).style.display = 'block';
+        }
+
+        function hideAllProcesses() {
+            for(let i = 1; i <= 4; i++) {
+                document.getElementById('process' + i).style.display = 'none';
+            }
+        }
+
+        function startAnimation() {
+            currentStep++;
+            removeParticles();
+            
+            switch(currentStep) {
+                case 1:
+                    relave.className = 'relave relave1';
+                    relave.style.left = '200px';
+                    relave.style.transform = 'rotate(180deg)';
+                    showProcess(1);
+                    infoText.textContent = "Fase 1: Análisis del relave original";
+                    createParticles();
+                    break;
+                case 2:
+                    relave.className = 'relave relave2';
+                    relave.style.left = '400px';
+                    relave.style.transform = 'rotate(360deg)';
+                    showProcess(2);
+                    infoText.textContent = "Fase 2: Separación y clasificación inicial";
+                    createParticles();
+                    break;
+                case 3:
+                    relave.className = 'relave relave3';
+                    relave.style.left = '600px';
+                    relave.style.transform = 'rotate(540deg)';
+                    showProcess(3);
+                    infoText.textContent = "Fase 3: Procesamiento químico y recuperación";
+                    createParticles();
+                    break;
+                case 4:
+                    relave.className = 'relave relave4';
+                    relave.style.left = '700px';
+                    relave.style.transform = 'rotate(720deg)';
+                    showProcess(4);
+                    infoText.textContent = "Fase 4: Producto final procesado";
+                    createParticles();
+                    break;
+                default:
+                    currentStep = 4;
+            }
+        }
+
+        function resetAnimation() {
+            currentStep = 0;
+            relave.className = 'relave relave1';
+            relave.style.left = '50px';
+            relave.style.transform = 'rotate(0deg)';
+            hideAllProcesses();
+            removeParticles();
+            infoText.textContent = "Presione 'Siguiente Paso' para ver la transformación del relave.";
+        }
+    </script>
+</body>
+</html>
