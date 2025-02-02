@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ciclo de Vida de un Proyecto de Revalorización de Relaves</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .stage {
+            display: none;
+            padding: 20px;
+            border-radius: 5px;
+            background: #e3f2fd;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .active {
+            display: block;
+        }
+        button {
+            padding: 10px 15px;
+            margin: 10px;
+            border: none;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ciclo de Vida de un Proyecto de Revalorización de Relaves</h1>
+        <div id="stage-container" class="stage active">
+            <h2>1. Diagnóstico e Inicio</h2>
+            <p>Se identifican los objetivos, alcance y viabilidad del proyecto, considerando factores técnicos y ambientales.</p>
+        </div>
+        <div class="stage">
+            <h2>2. Planificación</h2>
+            <p>Se define el plan de trabajo, recursos, costos y cronograma. Se establecen estrategias de mitigación de riesgos.</p>
+        </div>
+        <div class="stage">
+            <h2>3. Ejecución</h2>
+            <p>Se implementan las actividades según el plan, supervisando avances y ajustes en tiempo real.</p>
+        </div>
+        <div class="stage">
+            <h2>4. Monitoreo y Control</h2>
+            <p>Se evalúa el desempeño del proyecto, verificando cumplimiento de objetivos y tomando acciones correctivas si es necesario.</p>
+        </div>
+        <div class="stage">
+            <h2>5. Cierre</h2>
+            <p>Se documentan resultados, se realizan evaluaciones finales y se consolidan aprendizajes para futuras iniciativas.</p>
+        </div>
+        <button onclick="prevStage()">Anterior</button>
+        <button onclick="nextStage()">Siguiente</button>
+    </div>
+
+    <script>
+        let currentStage = 0;
+        const stages = document.querySelectorAll(".stage");
+
+        function updateStages() {
+            stages.forEach((stage, index) => {
+                stage.classList.toggle("active", index === currentStage);
+            });
+        }
+
+        function nextStage() {
+            if (currentStage < stages.length - 1) {
+                currentStage++;
+                updateStages();
+            }
+        }
+
+        function prevStage() {
+            if (currentStage > 0) {
+                currentStage--;
+                updateStages();
+            }
+        }
+    </script>
+</body>
+</html>
