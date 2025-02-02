@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marco Normativo en Colombia - Economía Circular</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
+        }
+        .slide {
+            display: none;
+        }
+        .active {
+            display: block;
+            animation: fadeIn 1s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Marco Normativo en Colombia</h2>
+        <div id="slide1" class="slide active">
+            <h3>Ley 685 de 2001</h3>
+            <p>Expide el Código de Minas y establece disposiciones para la explotación minera en Colombia.</p>
+        </div>
+        <div id="slide2" class="slide">
+            <h3>Resolución 18-0861 de 2002</h3>
+            <p>Adopta las Guías Minero Ambientales, esenciales para el desarrollo de proyectos mineros.</p>
+        </div>
+        <div id="slide3" class="slide">
+            <h3>Decreto 4741 de 2005</h3>
+            <p>Regula la prevención y manejo de residuos peligrosos en el marco de la economía circular.</p>
+        </div>
+        <div id="slide4" class="slide">
+            <h3>CONPES 3934 de 2018</h3>
+            <p>Establece la Política de Crecimiento Verde para impulsar el desarrollo sostenible en Colombia.</p>
+        </div>
+        <button onclick="nextSlide()">Siguiente</button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        function nextSlide() {
+            document.getElementById(`slide${currentSlide}`).classList.remove('active');
+            currentSlide++;
+            if (currentSlide > 4) currentSlide = 1;
+            document.getElementById(`slide${currentSlide}`).classList.add('active');
+        }
+    </script>
+</body>
+</html>
