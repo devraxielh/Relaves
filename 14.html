@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relaves en la Economía Circular</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #eef2f3;
+        }
+        canvas {
+            background-color: white;
+            display: block;
+            margin: auto;
+            border: 2px solid #444;
+        }
+        #info {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Relaves como recurso dentro de la Economía Circular</h1>
+    <canvas id="canvas" width="800" height="400"></canvas>
+    <div id="info">Observa cómo los relaves pueden ser reutilizados en diversos procesos.</div>
+    
+    <script>
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        let step = 0;
+
+        function drawBackground() {
+            ctx.fillStyle = "#eef2f3";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function drawProcess(title, x, y, width, height, color) {
+            ctx.fillStyle = color;
+            ctx.fillRect(x, y, width, height);
+            ctx.strokeStyle = "black";
+            ctx.strokeRect(x, y, width, height);
+            ctx.fillStyle = "black";
+            ctx.font = "16px Arial";
+            ctx.textAlign = "center";
+            ctx.fillText(title, x + width / 2, y + height / 2 + 5);
+        }
+
+        function drawArrow(x1, y1, x2, y2) {
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            
+            // Dibujar punta de flecha
+            let angle = Math.atan2(y2 - y1, x2 - x1);
+            ctx.beginPath();
+            ctx.moveTo(x2, y2);
+            ctx.lineTo(x2 - 10 * Math.cos(angle - Math.PI / 6), y2 - 10 * Math.sin(angle - Math.PI / 6));
+            ctx.lineTo(x2 - 10 * Math.cos(angle + Math.PI / 6), y2 - 10 * Math.sin(angle + Math.PI / 6));
+            ctx.lineTo(x2, y2);
+            ctx.fillStyle = "black";
+            ctx.fill();
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawBackground();
+
+            // Dibujar procesos
+            drawProcess("Extracción Minera", 50, 150, 150, 50, "#ffcc00");
+            drawProcess("Generación de Relaves", 250, 150, 180, 50, "#ff6666");
+            drawProcess("Procesamiento y Reciclaje", 500, 150, 220, 50, "#66cc66");
+            drawProcess("Nuevos Productos", 750, 150, 180, 50, "#4a90e2");
+
+            // Flechas
+            drawArrow(200, 175, 250, 175);
+            drawArrow(430, 175, 500, 175);
+            drawArrow(720, 175, 750, 175);
+
+            // Animación de partículas
+            let particleX = 250 + (step % 40) * 10;
+            ctx.fillStyle = step % 20 < 10 ? "#ff6666" : "#66cc66";
+            ctx.beginPath();
+            ctx.arc(particleX, 175, 5, 0, Math.PI * 2);
+            ctx.fill();
+
+            step++;
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
